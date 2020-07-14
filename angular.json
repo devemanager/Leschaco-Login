@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Leschaco-Login"
+    }
+  },
+  "defaultProject": "Leschaco-Login",
+  "cli": {
+    "analytics": "fb25ab8a-215e-49a7-983a-1486f9a04d6f"
+  }
 }
