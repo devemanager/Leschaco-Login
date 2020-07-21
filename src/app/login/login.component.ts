@@ -1,30 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { BroadcastService, MsalService } from '@azure/msal-angular';
-import { Logger, CryptoUtils } from 'msal';
+import { Component, OnInit } from '@angular/core'; 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BroadcastService,MsalService } from '@azure/msal-angular';
+import { Logger, CryptoUtils } from 'msal';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class AppComponent implements OnInit   {
-
-  title = 'Leschaco-Login';
-  isIframe = false;
+export class LoginComponent implements OnInit {
   loggedIn = false;
+  isIframe = false;
+
+  form: FormGroup;
+  public loginInvalid: boolean;
+  private formSubmitAttempt: boolean;
   private returnUrl: string;
-
+  
   constructor(
-    private broadcastService: BroadcastService, 
-    private authService: MsalService,
-    private router: Router,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
-    ) { }
+    private router: Router,
+    private authService: MsalService,
+    private broadcastService: BroadcastService
+  ) {}
 
-  ngOnInit() {
+   ngOnInit() {
+    //this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/user-profile';
 
-
+    this.form = this.fb.group({
+      username: ['', Validators.email],
+      password: ['', Validators.required]
+    });
     this.isIframe = window !== window.parent && !window.opener;
 
     this.checkoutAccount();
@@ -40,8 +48,6 @@ export class AppComponent implements OnInit   {
       }
 
       console.log('Redirect Success: ', response);
-
-  
     });
 
     this.authService.setLogger(new Logger((logLevel, message, piiEnabled) => {
@@ -51,19 +57,16 @@ export class AppComponent implements OnInit   {
       piiLoggingEnabled: false
     }));
 
-    //customize
-/*     console.log("test");
-    if(!this.loggedIn){
-      console.log("this.loggedIn :"+this.loggedIn);
-      this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/login';
-      this.router.navigate(['login']);
-    } */
-    
+if(this.loggedIn){
+  this.router.navigate(['home']); 
+}
+   
   }
 
   checkoutAccount() {
     this.loggedIn = !!this.authService.getAccount();
   }
+
 
   login() {
     const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
@@ -74,9 +77,5 @@ export class AppComponent implements OnInit   {
       this.authService.loginPopup();
     }
   }
-
-  logout() {
-    this.authService.logout();
-  }
-}
  
+}
