@@ -5,12 +5,13 @@ import { MsalGuard } from '@azure/msal-angular';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { HomeComponent } from './home/home.component';
 import {LoginComponent} from './login/login.component';
- import {AuthGuardService} from './services/auth-guard.service';
+import {ProfileComponent} from './profile/profile.component';
+import {AuthGuardService} from './services/auth-guard.service';
 
 const routes: Routes = [
   {
-    path: 'user-profile',
-    component: UserProfileComponent,
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [MsalGuard]
   },
   {

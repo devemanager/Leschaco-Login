@@ -23,6 +23,8 @@ import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSelectModule} from '@angular/material/select';
 import { MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatMenuModule} from '@angular/material/menu';
+//Services
+import {HttpHelperService} from './services/http-helper.service';
 //Microft authentication library
 import {
   MsalModule,
@@ -34,6 +36,7 @@ import {
 } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Configuration } from 'msal';
+import { ProfileComponent } from './profile/profile.component';
 
 export const protectedResourceMap: [string, string[]][] = [
   ['https://graph.microsoft.com/v1.0/me', ['user.read']]
@@ -45,11 +48,11 @@ const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigato
 function MSALConfigFactory(): Configuration {
   return {
     auth: {
-      clientId: 'c5473a7e-fc78-41fb-b152-b7451bbb22e1',
+      clientId: 'b0344388-8e9c-45a4-9580-e85d7cfeb565',
       authority: "https://login.microsoftonline.com/common/",
       validateAuthority: true,
-      redirectUri: "http://localhost:4200/home",
-      postLogoutRedirectUri: "http://localhost:4200/",
+      redirectUri: "http://localhost:4201/home",
+      postLogoutRedirectUri: "http://localhost:4201/",
       navigateToLoginRequestUrl: true,
     },
     cache: {
@@ -66,7 +69,7 @@ function MSALAngularConfigFactory(): MsalAngularConfiguration {
       "user.read",
       "openid",
       "profile",
-      "api://c5473a7e-fc78-41fb-b152-b7451bbb22e1/access_as_user"
+      "api://b0344388-8e9c-45a4-9580-e85d7cfeb565/access_as_user"
     ],
     unprotectedResources: ["https://www.microsoft.com/en-us/"],
     protectedResourceMap,
@@ -80,7 +83,8 @@ function MSALAngularConfigFactory(): MsalAngularConfiguration {
     LoginComponent,
     NavbarComponent,
     HomeComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +122,8 @@ function MSALAngularConfigFactory(): MsalAngularConfiguration {
       provide: MSAL_CONFIG_ANGULAR,
       useFactory: MSALAngularConfigFactory
     },
-    MsalService
+    MsalService,
+    HttpHelperService
   ],
   bootstrap: [AppComponent]
 })

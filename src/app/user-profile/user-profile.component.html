@@ -1,1 +1,26 @@
-Welcome {{userprofile?.displayName}}
+<div id="userIdentifier">
+    Welcome to Leschaco login!!
+   </div>
+   
+   <img *ngIf="photo" [src]="photo"  class="image_inner_container" >
+   <ul>
+
+       <li>
+           id :  {{userprofile?.id}}
+        </li>
+        <li>
+            Name :  {{userprofile?.displayName}} 
+  
+         </li>
+       <li>
+          Email :  {{userprofile?.mail}}
+       </li>
+       <li>
+          JobTitle : {{userprofile?.jobTitle}}
+       </li>
+       <li>
+         OfficeLocation :  {{userprofile?.officeLocation}}
+       </li>
+       
+   </ul>
+   

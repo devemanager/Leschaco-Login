@@ -8,19 +8,16 @@ import { map } from 'rxjs/operators';
 
 const GRAPH_ENDPOINT = 'https://graph.microsoft.com/v1.0/me';
 
-
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
-
+export class ProfileComponent implements OnInit {
   userprofile;
   userPhoto;
   photo: any; 
-  url = "https://graph.microsoft.com/v1.0/me";
-  
+   
   constructor(private authService: MsalService, private http: HttpClient, private httpService: HttpHelperService,private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
@@ -36,8 +33,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserPhoto(): Observable<SafeUrl> {
-    this.httpService.httpGetRequest(this.url);
-    let requestUrl =this.url+'/photo/$value';
+    this.httpService.httpGetRequest(GRAPH_ENDPOINT);
+    let requestUrl =GRAPH_ENDPOINT+'/photo/$value';
     return this.http.get(requestUrl, { responseType: "blob" }).pipe(map(result => {
       let url = window.URL;
       return this.sanitizer.bypassSecurityTrustUrl(url.createObjectURL(result));

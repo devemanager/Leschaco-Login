@@ -1,18 +1,50 @@
 
   <mat-toolbar color="primary" class="expanded-toolbar"  *ngIf="loggedIn">
     <span>
-      <button mat-button routerLink="/">{{title}}</button>
+      <img width="150" src="https://www.leschaco.com/fileadmin/leschaco/templates/base_templates/img/logo_leschaco_220.png" alt="Leschaco">
+     
       <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
+     
+
     </span>
   <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+
+  
+    <button mat-button *ngIf="loggedIn"  routerLink="/profile">
+      <mat-icon>perm_identity</mat-icon>
+      Profile
+    </button>
+    <button mat-button *ngIf="loggedIn"  routerLink="/profile">
+      <mat-icon>perm_identity</mat-icon>
+      Profile
+    </button>
+    <button mat-button *ngIf="loggedIn"  routerLink="/profile">
+      <mat-icon>perm_identity</mat-icon>
+      Profile
+    </button>
+    <button mat-button *ngIf="loggedIn"  routerLink="/profile">
+      <mat-icon>perm_identity</mat-icon>
+      Profile
+    </button>
+    <button mat-button *ngIf="loggedIn"  routerLink="/profile">
+      <mat-icon>perm_identity</mat-icon>
+      Profile
+    </button>
+    
+
     <button mat-button routerLink="/login"  *ngIf="!loggedIn">
       <mat-icon>power_settings_new</mat-icon>
       Login
     </button>
+   
+
     <button mat-button *ngIf="loggedIn"  (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       Logout
     </button> 
+
+  
+
   </div>
   <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
     <mat-icon>menu</mat-icon>
@@ -23,9 +55,9 @@
     <mat-icon>home</mat-icon>
     Home
   </button>
-  <button mat-menu-item routerLink="/game">
-    <mat-icon>gamepad</mat-icon>
-    Play
+  <button mat-menu-item routerLink="/profile">
+    <mat-icon>perm_identity</mat-icon>
+    Profile
   </button>
   <button mat-menu-item routerLink="/login"  *ngIf="!loggedIn">
     <mat-icon>power_settings_new</mat-icon>
